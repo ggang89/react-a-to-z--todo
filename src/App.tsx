@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 
 type Todo = { id: string; title: string; completed: boolean };
-//type TodoList = Todo[];
+type TodoList = Todo[];
 
 export default class App extends Component {
-  state = {
+  state: {
+    todoDatas: TodoList,
+    value: string;
+  }= {
     todoDatas: [],
     value: "",
   };
