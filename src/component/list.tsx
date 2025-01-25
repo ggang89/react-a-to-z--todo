@@ -7,21 +7,8 @@ type PropsType = {
 };
 
 export default function List({ todoData,setTodoData }: PropsType) {
-  const btnStyle = {
-    color: "#fff",
-    border: "none",
-    padding: "5px 9px",
-    borderRadius: "50%",
-    cursor: "pointer",
-    cssFloat: "right",
-  };
-  const getStyle = (completed: boolean) => {
-    return {
-      padding: "10px",
-      borderBottom: "1px #ccc dotted",
-      textDecoration: completed ? "line-through" : "none",
-    };
-  };
+ 
+  
   const handleCompleteChange = (id: number) => {
     const newTodo: TodoList = todoData.map((todo: Todo) => {
       if (todo.id === id) {
@@ -38,16 +25,21 @@ export default function List({ todoData,setTodoData }: PropsType) {
   return (
     <div>
       {todoData.map((todo: Todo) => (
-        <div key={todo.id} style={getStyle(todo.completed)}>
-          <input
-            type="checkbox"
-            defaultChecked={todo.completed}
-            onChange={() => handleCompleteChange(todo.id)}
-          />{" "}
-          {todo.title}
-          <button style={btnStyle} onClick={() => handleClick(todo.id)}>
-            X
-          </button>
+        <div
+          key={todo.id}
+          className="flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded "
+        >
+          <div className="items-center">
+            <input
+              type="checkbox"
+              defaultChecked={todo.completed}
+              onChange={() => handleCompleteChange(todo.id)}
+            />{" "}
+            <span className={todo.completed?"line-through":undefined}>{todo.title}</span>
+          </div>
+          <div className="items-center">
+            <button className ="px-4 py-2 float-right" onClick={() => handleClick(todo.id)}>X</button>
+          </div>
         </div>
       ))}
     </div>
