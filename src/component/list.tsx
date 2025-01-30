@@ -1,4 +1,9 @@
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
 import TodoItem from "./todoItem";
 
 type Todo = { id: number; title: string; completed: boolean };
@@ -12,7 +17,7 @@ type PropsType = {
 export default function List({ todoData, setTodoData }: PropsType) {
  
 
-  const handleEnd = (result) => {
+  const handleEnd = (result:DropResult) => {
     // result 매개변수에는 source 항목 및 대상 위치와 같은 드래그 이벤트에 대한 정보가 포함된다.
     console.log("result",result)
     // 목적지가 없으면(이벤트 취소) 이 함수를 종료한다.
