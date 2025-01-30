@@ -1,4 +1,5 @@
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import TodoItem from "./todoItem";
 
 type Todo = { id: number; title: string; completed: boolean };
 type TodoList = Todo[];
@@ -9,19 +10,7 @@ type PropsType = {
 };
 
 export default function List({ todoData, setTodoData }: PropsType) {
-  const handleCompleteChange = (id: number) => {
-    const newTodo: TodoList = todoData.map((todo: Todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-      return todo;
-    });
-    setTodoData(newTodo);
-  };
-  const handleClick = (id: number) => {
-    const newTodoData = todoData.filter((todo: Todo) => todo.id !== id);
-    setTodoData(newTodoData);
-  };
+ 
 
   const handleEnd = (result) => {
     // result 매개변수에는 source 항목 및 대상 위치와 같은 드래그 이벤트에 대한 정보가 포함된다.
@@ -53,38 +42,16 @@ export default function List({ todoData, setTodoData }: PropsType) {
                   index={index}
                 >
                   {(provided, snapshot) => (
-                    <div
+                    <TodoItem
                       key={todo.id}
-                      {...provided.draggableProps}
-                      ref={provided.innerRef}
-                      {...provided.dragHandleProps}
-                      className={`${
-                        snapshot.isDragging ? "bg-gray-400" : "bg-gray-100"
-                      } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 border rounded `}
-                    >
-                      <div className="items-center">
-                        <input
-                          type="checkbox"
-                          defaultChecked={todo.completed}
-                          onChange={() => handleCompleteChange(todo.id)}
-                        />{" "}
-                        <span
-                          className={
-                            todo.completed ? "line-through" : undefined
-                          }
-                        >
-                          {todo.title}
-                        </span>
-                      </div>
-                      <div className="items-center">
-                        <button
-                          className="px-4 py-2 float-right"
-                          onClick={() => handleClick(todo.id)}
-                        >
-                          X
-                        </button>
-                      </div>
-                    </div>
+                      id={todo.id}
+                      title={todo.title}
+                      completed={todo.completed}
+                      todoData={todoData}
+                      setTodoData={setTodoData}
+                      provided={provided}
+                      snapshot={snapshot}
+                    />
                   )}
                 </Draggable>
               ))}
