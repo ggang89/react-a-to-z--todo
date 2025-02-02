@@ -23,7 +23,6 @@ const TodoItem = React.memo(
     provided,
     snapshot,
   }: PropsType) => {
-    console.log("todoItem")
     const handleCompleteChange = (id: number) => {
       const newTodo = todoData.map((todo: Todo) => {
         if (todo.id === id) {
@@ -50,12 +49,11 @@ const TodoItem = React.memo(
         <div className="flex items-center">
           <input
             type="checkbox"
-            // defaultChecked={completed}
             checked={completed}
             onChange={() => handleCompleteChange(id)}
           />{" "}
           <span className={completed ? "line-through" : undefined}>
-            {title}
+           {" "} {title}
           </span>
         </div>
         <div className="items-center">

@@ -5,6 +5,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import TodoItem from "./todoItem";
+import React from "react";
 
 type Todo = { id: number; title: string; completed: boolean };
 type TodoList = Todo[];
@@ -14,12 +15,11 @@ type PropsType = {
   setTodoData: React.Dispatch<React.SetStateAction<TodoList>>; // 상태 업데이트 함수 타입
 };
 
-export default function List({ todoData, setTodoData }: PropsType) {
- 
+const List = React.memo(({ todoData, setTodoData }: PropsType) => {
 
-  const handleEnd = (result:DropResult) => {
+  const handleEnd = (result: DropResult) => {
     // result 매개변수에는 source 항목 및 대상 위치와 같은 드래그 이벤트에 대한 정보가 포함된다.
-    console.log("result",result)
+    console.log("result", result);
     // 목적지가 없으면(이벤트 취소) 이 함수를 종료한다.
     if (!result.destination) return;
 
@@ -33,7 +33,7 @@ export default function List({ todoData, setTodoData }: PropsType) {
     // 원하는 자리에 넣어준다.
     newTodoData.splice(result.destination.index, 0, reorderedItem);
     setTodoData(newTodoData);
-  }
+  };
   return (
     <div>
       <DragDropContext onDragEnd={handleEnd}>
@@ -67,4 +67,6 @@ export default function List({ todoData, setTodoData }: PropsType) {
       </DragDropContext>
     </div>
   );
-}
+});
+
+export default List;
