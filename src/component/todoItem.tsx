@@ -34,17 +34,21 @@ const TodoItem = React.memo(
         return todo;
       });
       setTodoData(newTodo);
+      localStorage.setItem("todoData", JSON.stringify(newTodo));
     };
     const handleClick = (id: number) => {
       const newTodoData = todoData.filter((todo: Todo) => todo.id !== id);
       setTodoData(newTodoData);
+      localStorage.setItem("todoData", JSON.stringify(newTodoData));
     };
 
     const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEditedTitle(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (
+      e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+    ) => {
       e.preventDefault();
 
       const newTodoData = todoData.map((todo) => {
@@ -54,6 +58,7 @@ const TodoItem = React.memo(
         return todo;
       });
       setTodoData(newTodoData);
+      localStorage.setItem("todoData", JSON.stringify(newTodoData));
       setIsEditing(false);
     };
 
@@ -65,10 +70,9 @@ const TodoItem = React.memo(
               <input
                 value={editedTitle}
                 onChange={handleEditChange}
-              className="bg-white w-full px-3 py-2 mr-4 text-gray-500 rounded"
+                className="bg-white w-full px-3 py-2 mr-4 text-gray-500 rounded"
               />
             </form>
-            
           </div>
           <div className="items-center">
             <button
@@ -80,7 +84,7 @@ const TodoItem = React.memo(
             <button
               className="px-4 py-2 float-right"
               type="submit"
-             onClick={handleSubmit}
+              onClick={handleSubmit}
             >
               Save
             </button>

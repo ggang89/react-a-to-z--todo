@@ -33,6 +33,7 @@ const List = React.memo(({ todoData, setTodoData }: PropsType) => {
     // 원하는 자리에 넣어준다.
     newTodoData.splice(result.destination.index, 0, reorderedItem);
     setTodoData(newTodoData);
+     localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
   return (
     <div>
